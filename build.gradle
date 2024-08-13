@@ -5,6 +5,14 @@ plugins {
 
 apply from: 'script.gradle'
 
+allprojects {
+    group "greem4"
+
+    repositories {
+        mavenCentral()
+    }
+}
+
 repositories {
     mavenCentral()
 }
