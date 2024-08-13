@@ -1,8 +1,10 @@
 plugins {
     id 'java-library'
     id 'jacoco'
+    id 'custom-greem4'
 }
 
+//apply plugin: com.greem4.plugin.CustomPlugin
 
 repositories {
     mavenCentral()

@@ -24,7 +24,6 @@ java {
 dependencies {
     compileOnly 'jakarta.servlet:jakarta.servlet-api:6.1.0'
 
-    // Import the BOM for Spring Boot dependencies
     implementation platform('org.springframework.boot:spring-boot-dependencies:3.3.2')
     implementation('org.springframework:spring-aop')
 
@@ -39,16 +38,13 @@ jar {
         attributes 'Main-Class': 'com.greem4.HelloWorld',
                 'Class-Path': jars.join(' ')
     }
-//    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-//
-//    from(configurations.runtimeClasspath.asFileTree.matching {
-//        include '**/*.jar'
-//    }.files.collect({ zipTree(it) }))
-}
-task copyAllDependecies(type: Copy) {
-    from(configurations.runtimeClasspath.files)
-    into("$buildDir/libs/lib")
 
 }
-jar.dependsOn copyAllDependecies
+tasks.register("copyAllDependencies", Copy) {
+    from configurations.runtimeClasspath
+    into "$buildDir/libs/lib"
+}
 
+tasks.named("jar") {
+    dependsOn(tasks.named("copyAllDependencies"))
+}
